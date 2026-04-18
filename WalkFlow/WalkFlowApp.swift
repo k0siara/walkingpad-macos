@@ -1,3 +1,4 @@
+import AppKit
 import SwiftUI
 
 enum WalkFlowWindowID {
@@ -7,6 +8,11 @@ enum WalkFlowWindowID {
 @main
 struct WalkFlowApp: App {
     @StateObject private var controller = WalkingPadController()
+    private let menuBarIcon = WalkFlowApp.makeMenuBarIcon()
+
+    init() {
+        NSApplication.shared.applicationIconImage = NSWorkspace.shared.icon(forFile: Bundle.main.bundlePath)
+    }
 
     var body: some Scene {
         WindowGroup("WalkFlow", id: WalkFlowWindowID.main) {
@@ -19,7 +25,8 @@ struct WalkFlowApp: App {
                 .environmentObject(controller)
         } label: {
             HStack(spacing: 6) {
-                Image(systemName: menuBarSymbolName)
+                Image(nsImage: menuBarIcon)
+                    .renderingMode(.original)
 
                 if controller.canControl {
                     Text(controller.speedValueText)
@@ -31,19 +38,9 @@ struct WalkFlowApp: App {
         .menuBarExtraStyle(.window)
     }
 
-    private var menuBarSymbolName: String {
-        if controller.isBeltRunning {
-            return "figure.walk.motion"
-        }
-
-        if controller.canControl {
-            return "figure.walk.circle.fill"
-        }
-
-        if controller.screenPhase == .connecting {
-            return "dot.radiowaves.left.and.right"
-        }
-
-        return "figure.walk"
+    private static func makeMenuBarIcon() -> NSImage {
+        let icon = NSWorkspace.shared.icon(forFile: Bundle.main.bundlePath)
+        icon.size = NSSize(width: 18, height: 18)
+        return icon
     }
 }
