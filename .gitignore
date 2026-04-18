@@ -1,0 +1,16 @@
+.DS_Store
+
+# Xcode user state
+**/xcuserdata/
+**/*.xcuserstate
+
+# Build products
+**/.DerivedData/
+**/build/
+
+# Swift Package Manager
+.build/
+
+# Temporary files
+*.swp
+*.swo
