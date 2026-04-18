@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="banner.png" alt="WalkFlow banner" width="887">
+</p>
+
 # WalkFlow
 
 Unofficial native macOS app and menu bar remote for WalkingPad / Kingsmith treadmills.
